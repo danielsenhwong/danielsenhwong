@@ -16,8 +16,8 @@ urlpatterns = patterns('',
     
     # Django user authentication
     url(r'^accounts/login/$', 'django.contrib.auth.views.login',
-        {'template_name': 'registration/login.html',
-        }),
+      {'template_name': 'registration/login.html'}
+    ),
         
     # My applications
     url(r'^', include('home.urls')), # home
