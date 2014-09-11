@@ -16,5 +16,5 @@ urlpatterns = patterns('',
         }),
         
     # My applications
-    url(r'^', include('home.urls'), name='home'), # home
+    url(r'^', include('home.urls')), # home
 )
