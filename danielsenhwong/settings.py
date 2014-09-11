@@ -42,6 +42,7 @@ INSTALLED_APPS = (
 INSTALLED_APPS += (
     #'south', # database migrations, will be obsolete with django 1.7
     'mathfilters',
+    'home',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,8 +94,8 @@ STATIC_ROOT = '/var/www/danielsenhwong/static/'
 PROJECT_DIR = os.path.dirname(__file__)
 STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'),)
 
-TEMPLATE_DIRS = ('home/danielsenhwong/danielsenhwong/templates',
-                 'Users/danielwong/github/danielsenhwong/danielsenhwong/templates',
+TEMPLATE_DIRS = ('/home/danielsenhwong/danielsenhwong/templates',
+                 '/Users/danielwong/github/danielsenhwong/danielsenhwong/templates',
                  )
                  
 TEMPLATE_DIRS += STATICFILES_DIRS
