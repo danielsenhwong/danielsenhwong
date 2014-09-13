@@ -28,10 +28,15 @@
         <div id="container">
     		<div id="navigation">
     			{% include "navigation.html" %}
+    			<script type="text/javascript">
+					var _bftn_options = { animation: 'banner', theme: 'dark' }
+				</script>
+				<script src="//widget.battleforthenet.com/widget.min.js" async></script>
 			</div>
 			<div id="content">
 				<h1 class="noMarginTop">{% block content_title %}{% endblock %}</h1>
 		        {% block content %}{% endblock %}
+		        
 		    </div>
 		</div>
 
