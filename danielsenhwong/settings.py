@@ -94,7 +94,7 @@ STATIC_ROOT = '/var/www/danielsenhwong/static/'
 PROJECT_DIR = os.path.dirname(__file__)
 STATICFILES_DIRS = (os.path.join(PROJECT_DIR, 'static'),)
 
-TEMPLATE_DIRS = ('/home/danielsenhwong/danielsenhwong/templates',
+TEMPLATE_DIRS = ('/home/danielsenhwong/danielsenhwong/danielsenhwong/templates',
                  '/Users/danielwong/github/danielsenhwong/danielsenhwong/templates',
                  )
                  
