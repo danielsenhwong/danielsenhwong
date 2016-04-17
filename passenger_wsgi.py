@@ -1,5 +1,5 @@
 #import sys
-from flask import Flask, Response
+from flask import Flask, Response, render_template
 application = Flask(__name__)
 
 #def application(environ, start_response):
@@ -9,8 +9,11 @@ application = Flask(__name__)
 #	return [bytes(str, 'UTF-8')]
 
 @application.route("/")
-def hello():
-	return "Hello World!"
+#def hello():
+#	return "Hello World!"
+
+def index():
+    return render_template('index.html')
 
 if __name__ == "__main__":
 	application.run()
