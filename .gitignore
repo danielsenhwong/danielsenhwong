@@ -54,10 +54,12 @@ docs/_build/
 target/
 
 ##### My modifications #####
-# settings has been sanitized
-dev_settings.py
-*.sqlite3
-fixtures/
-*.psd
-*.ai
-
+# To serve a Flask app for the main site, it has to be based out of /var/www
+# so we have to ignore all subfolders for the subdomains
+blog/
+endo/
+awstats/
+sackler/
+html/
+index_default.html
+cgi-bin/
