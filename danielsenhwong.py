@@ -10,7 +10,6 @@ from contextlib import closing
 #####
 # VARIABLES
 #####
-project_secret_path = '/home/danielsenhwong/project_secrets/danielsenhwong_secret.txt'
 database_cnf_path = '/home/danielsenhwong/project_secrets/danielsenhwong_dev_db.cnf'
 
 #####
@@ -49,10 +48,12 @@ def teardown_request(exception):
         db.close()
 
 #####
-# ROUTING
+# INTERNAL ROUTING - Modify internal URLs, e.g. url_for()
 #####
 # From https://gist.github.com/Ostrovski/f16779933ceee3a9d181
 # Solve issue of static files not being refreshed
+# Add a hash parameter to a URL for static content, e.g. CSS files
+# Intercept url_for() calls and add the hash as 'h' parameter
 @application.url_defaults
 def hashed_url_for_static_file(endpoint, values):
     if 'static' == endpoint or endpoint.endswith('.static'):
@@ -76,20 +77,22 @@ def hashed_url_for_static_file(endpoint, values):
 def static_file_hash(filename):
   return int(os.stat(filename).st_mtime) # or app.config['last_build_timestamp'] or md5(filename) or etc...
 
-
+#####
+# ROUTING
+#####
 @application.route('/')
 def index():
-    cur = g.db.execute('select title, description, url from projects order by id desc')
-    projects = [dict(title=row[0], description=row[1], url=row[2]) for row in cur.fetchall()]
+    data = g.db.execute('select title, description, url from projects order by id desc')
+    projects = [dict(title=row[0], description=row[1], url=row[2]) for row in data.fetchall()]
     return render_template('index.html', projects=projects, page_title='Home')
 
-@application.route('/show_projects')
+@application.route('/projects')
 def show_projects():
-    cur = g.db.execute('select title, description, url from projects order by id desc')
-    projects = [dict(title=row[0], description=row[1], url=row[2]) for row in cur.fetchall()]
+    data = g.db.execute('select title, description, url from projects order by id desc')
+    projects = [dict(title=row[0], description=row[1], url=row[2]) for row in data.fetchall()]
     return render_template('show.html', projects=projects, page_title='Project List')
 
-@application.route('/add_project', methods=['POST'])
+@application.route('/projects/add', methods=['POST'])
 def add_project():
     if not session.get('logged_in'):
         abort(401)
@@ -123,5 +126,8 @@ def logout():
     flash('You were logged out.')
     return redirect(url_for('show_projects'))
 
+#####
+# RUN FLASK
+#####
 if __name__ == "__main__":
 	application.run()
