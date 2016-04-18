@@ -70,7 +70,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            rerturn redirect(url_for('show_projects'))
+            return redirect(url_for('show_projects'))
     return render_template('login.html', error=error)
 
 @application.route('/logout')
