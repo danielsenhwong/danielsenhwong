@@ -55,8 +55,7 @@ def index():
     return render_template('index.html', projects=projects)
 
 def show_projects():
-    cur = g.db.execute('select title, description from projects order by id
-desc')
+    cur = g.db.execute('select title, description from projects order by id desc')
     projects = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
     return render_template('index.html', projects=projects)
 
