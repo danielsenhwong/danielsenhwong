@@ -7,6 +7,7 @@
 import sqlite3
 from flask import (Flask, Response, render_template, request, session, g, url_for, abort, redirect, flash)
 from contextlib import closing
+from danielsenhwong import *
 
 #####
 # CONFIG
@@ -23,7 +24,7 @@ application.config.from_pyfile('/home/danielsenhwong/project_secrets/danielsenhw
 # Connect to the database
 def connect_db():
     return sqlite3.connect(application.config['DATABASE'])
-
+    
 # Initialize the database
 def init_db():
     with closing(connect_db()) as db:
