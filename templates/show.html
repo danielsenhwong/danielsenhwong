@@ -1,0 +1,23 @@
+{% extends 'base_template.html' %}
+{% block content %}
+    {% if session.logged_in %}
+        <form action="{{ url_for('add_project') }}" method='POST' class='add-project'>
+        <dl>
+            <dt>Title:</dt>
+            <dd><input type='text' size='30' name='title'></dd>
+            <dt>Description</dt>
+            <dd><textarea name='description' rows=5 cols=40></textarea></dd>
+            <dt>URL</dt>
+            <dd><input type='text' size='30' name='url'></dd>
+            <dd><input type='submit' value='Add project'></dd>
+        </dl>
+    {% endif %}
+    <ul class='projects'>
+    {% for project in projects %}
+        <li><h2><a href="{{ project.url }}">{{ project.title }}</a></h2>{{ project.description|safe }}
+    {% else %}
+        <li><em>No projects listed</em></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+            

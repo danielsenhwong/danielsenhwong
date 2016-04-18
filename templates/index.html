@@ -1,10 +1,13 @@
 {% extends "base_template.html" %}
 {% block content %}
-    <ul class='projects'>
+    <div class='heading'>Projects</div>
+    <div class='section'>
     {% for project in projects %}
-        <li><h2>{{ project.title }}</h2>{{ project.description|safe }}</li>
+        <div>
+            <a href="{{ project.url }}">{{ project.title }}</a>
+        </div>
     {% else %}
-        <li><em>Got nothin'!</em></li>
+        <em>Got nothin'!</em>
     {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
