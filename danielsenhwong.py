@@ -107,6 +107,7 @@ def add_project():
     flash('New entry was successfully posted')
     return redirect(url_for('show_projects'))
 
+@application.route('/projects/add', methods=['GET'])
 @application.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
