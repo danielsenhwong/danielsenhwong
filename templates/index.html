@@ -1,4 +1,10 @@
 {% extends "base_template.html" %}
 {% block content %}
-Index.html
+    <ul class='projects'>
+    {% for project in projects %}
+        <li><h2>{{ project.title }}</h2>{{ project.description|safe }}</li>
+    {% else %}
+        <li><em>Got nothin'!</em></li>
+    {% endfor %}
+    </ul>
 {% endblock %}
