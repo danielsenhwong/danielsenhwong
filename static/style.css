@@ -2,11 +2,28 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.container {
+    padding: 0 0 10px 0;
+}
+
+.title {
+    font-size: x-large;
+}
+
 .heading {
     font-size: large;
-    font-weight: bold;
+    padding-bottom: 5px;
 }
 
 .section {
     font-size: medium;
+}
+
+.item {
+    padding-bottom: 5px;
+}
+
+.flat {
+    display: inline;
+    margin: 0;
 }

@@ -78,13 +78,13 @@ def static_file_hash(filename):
 def index():
     cur = g.db.execute('select title, description, url from projects order by id desc')
     projects = [dict(title=row[0], description=row[1], url=row[2]) for row in cur.fetchall()]
-    return render_template('index.html', projects=projects)
+    return render_template('index.html', projects=projects, page_title='Home')
 
 @application.route('/show_projects')
 def show_projects():
     cur = g.db.execute('select title, description, url from projects order by id desc')
     projects = [dict(title=row[0], description=row[1], url=row[2]) for row in cur.fetchall()]
-    return render_template('show.html', projects=projects)
+    return render_template('show.html', projects=projects, page_title='Project List')
 
 @application.route('/add_project', methods=['POST'])
 def add_project():
@@ -112,7 +112,7 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('show_projects'))
-    return render_template('login.html', error=error)
+    return render_template('login.html', error=error, page_title='Login')
 
 @application.route('/logout')
 def logout():

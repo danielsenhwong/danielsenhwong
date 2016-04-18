@@ -1,23 +1,37 @@
 {% extends 'base_template.html' %}
-{% block content %}
-    {% if session.logged_in %}
-        <form action="{{ url_for('add_project') }}" method='POST' class='add-project'>
-        <dl>
-            <dt>Title:</dt>
-            <dd><input type='text' size='30' name='title'></dd>
-            <dt>Description</dt>
-            <dd><textarea name='description' rows=5 cols=40></textarea></dd>
-            <dt>URL</dt>
-            <dd><input type='text' size='30' name='url'></dd>
-            <dd><input type='submit' value='Add project'></dd>
-        </dl>
-    {% endif %}
-    <ul class='projects'>
-    {% for project in projects %}
-        <li><h2><a href="{{ project.url }}">{{ project.title }}</a></h2>{{ project.description|safe }}
-    {% else %}
-        <li><em>No projects listed</em></li>
-    {% endfor %}
-    </ul>
+
+{% block title %}
+   <div class='title'>Project Listing</title>
 {% endblock %}
+
+{% block content %}
+    <div class='section'>
+    {% for project in projects %}
+        <div class='item'>
+            <a href="{{ project.url }}">{{ project.title }}</a><br />
+            {{ project.description }}
+        </div>
+    {% else %}
+        <em>No projects listed</em>
+    {% endfor %}
+    </div>
+
+    <div class='spacer'>&nbsp;</div>
+    {% if session.logged_in %}
+        <div class='heading'>Add a project</div>
+        <div class='section'>
+            <form action="{{ url_for('add_project') }}" method='POST' class='add-project'>
+            <dl class='flat'>
+                <dt>Title:</dt>
+                <dd><input type='text' size='30' name='title'></dd>
+                <dt>Description</dt>
+                <dd><textarea name='description' rows=5 cols=40></textarea></dd>
+                <dt>URL</dt>
+                <dd><input type='text' size='30' name='url'></dd>
+                <dd><input type='submit' value='Add project'></dd>
+            </dl>
+        </div>
+    {% endif %}
+{% endblock %}    
+
             

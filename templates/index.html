@@ -1,4 +1,9 @@
 {% extends "base_template.html" %}
+
+{% block title %}
+    <div class='title'>Daniel Senh Wong</div>
+{% endblock %}
+
 {% block content %}
     <div class='heading'>Projects</div>
     <div class='section'>
@@ -7,7 +12,7 @@
             <a href="{{ project.url }}">{{ project.title }}</a>
         </div>
     {% else %}
-        <em>Got nothin'!</em>
+        <em>No projects listed</em>
     {% endfor %}
     </div>
 {% endblock %}
