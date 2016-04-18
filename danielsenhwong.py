@@ -95,7 +95,8 @@ def show_projects():
 @application.route('/projects/add', methods=['POST'])
 def add_project():
     if not session.get('logged_in'):
-        abort(401)
+        #abort(401)
+        return redirect(url_for('login'))
     g.db.execute('insert into projects (title, description, url) values (?, ?, ?)',
             [
                 request.form['title'],
