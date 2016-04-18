@@ -8,26 +8,18 @@ import sqlite3
 from flask import (Flask, Response, render_template, request, session, g, url_for, abort, redirect, flash)
 from contextlib import closing
 
-# Tutorial/demo
-#def application(environ, start_response):
-#	start_response('200 OK', [('Content-Type', 'text/plain')])
-#	v = sys.version_info
-#	str = 'hello world from %d.%d.%d!\n' % (v.major, v.minor, v.micro)
-#	return [bytes(str, 'UTF-8')]
-
-# Configure database and connections
-# Include the following in a separate file that will not be copied to github
-#DATABASE = '/tmp/danielsenhwong.db'
-#DEBUG = True
-#SECRET_KEY =
-#USERNAME = 
-#PASSWORD = 
-
+#####
+# CONFIG
+#####
 # Set up the application
 application = Flask(__name__)
+
+# Database configuration in separate file
 application.config.from_pyfile('/home/danielsenhwong/project_secrets/danielsenhwong_dev_db.cnf', silent=True)
 
-# Database-related functions
+#####
+# DATABASE
+#####
 # Connect to the database
 def connect_db():
     return sqlite3.connect(application.config['DATABASE'])
@@ -51,15 +43,40 @@ def teardown_request(exception):
     if db is not None:
         db.close()
 
+#####
+# ROUTING
+#####
 # Application routes
-@application.route("/")
-#def hello():
-#	return "Hello World!"
-
+@application.route('/')
 def index():
     cur = g.db.execute('select title, description from projects order by id desc')
     projects = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
     return render_template('index.html', projects=projects)
 
+def show_projects():
+    cur = g.db.execute('select title, description from projects order by id
+desc')
+    projects = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
+    return render_template('index.html', projects=projects)
+
+@application.route('/add_project', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != application.config['USERNAME']:
+            error = 'Invalid username'
+        elif request.form['password'] != application.config['PASSWORD']:
+            error = 'Invalid password'
+        else:
+            session['logged_in'] = True
+            flash('You were logged in')
+            rerturn redirect(url_for('show_projects'))
+    return render_template('login.html', error=error)
+
+@application.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out.')
+    return redirect(url_for('show_projects'))
 if __name__ == "__main__":
 	application.run()
