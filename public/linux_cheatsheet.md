@@ -20,8 +20,11 @@ sudo python3 -m pip install scikit-learn ipykernel conda
 ```bash
 sudo apt-get install binutils libproj-dev gdal-bin libgeos-dev
 ```
-Download the latest `matplotlib` `basemap` toolkit from their GitHub Releases page: https://github.com/matplotlib/basemap/releases. Unzip this, navigate to the directory, and open the `setup.py` file in an editor, because as of `basemap-1.0.7`, we need to make a change.
-The newer GEOS library doesn't have the C++ libraries (`libgeos.so`, `geos.so`, etc.), instead only has the C lirbaries (`libgeos_c.so`, `geos_c.so`), and the basemap-1.0.7 release install file looks for the C++ library. To fix this, modify `setup.py` line 86 to remove this bit of code:
+Check the versions of the latest `matplotlib` `basemap` toolkit from their GitHub Releases page: https://github.com/matplotlib/basemap/releases. If it is >=1.1.0, simply install basemap with `pip`:
+```shell
+sudo python3 -m pip install basemap
+```
+Otherwise, download the `tar.gz` archive of the latest version, likely 1.0.7. Unzip this, navigate to the directory, and open the `setup.py` file in an editor, because in `basemap-1.0.7`, we need to make a change. The newer GEOS library doesn't have the C++ libraries (`libgeos.so`, `geos.so`, etc.), instead only has the C lirbaries (`libgeos_c.so`, `geos_c.so`), and the basemap-1.0.7 release install file looks for the C++ library. To fix this, modify `setup.py` line 86 to remove this bit of code:
 ```python
 libraries=['geos_c', 'geos']))
 ```
@@ -50,7 +53,7 @@ else:
                                 include_dirs=geos_include_dirs,
                                 libraries=['geos_c']))
 ```
-Install `basemap`
+Finally, install `basemap`
 ```bash
 sudo python3 setup.py install
 ```
