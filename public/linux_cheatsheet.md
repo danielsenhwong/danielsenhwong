@@ -24,7 +24,10 @@ Check the versions of the latest `matplotlib` `basemap` toolkit from their GitHu
 ```shell
 sudo python3 -m pip install basemap
 ```
-Otherwise, download the `tar.gz` archive of the latest version, likely 1.0.7. Unzip this, navigate to the directory, and open the `setup.py` file in an editor, because in `basemap-1.0.7`, we need to make a change. The newer GEOS library doesn't have the C++ libraries (`libgeos.so`, `geos.so`, etc.), instead only has the C lirbaries (`libgeos_c.so`, `geos_c.so`), and the basemap-1.0.7 release install file looks for the C++ library. To fix this, modify `setup.py` line 86 to remove this bit of code:
+Otherwise, download the `tar.gz` archive of the latest version, likely 1.0.7. Unzip this, navigate to the directory, and open the `setup.py` file in an editor, because in `basemap-1.0.7`, we need to make a change. The newer GEOS library doesn't have the C++ libraries (`libgeos.so`, `geos.so`, etc.), instead only has the C lirbaries (`libgeos_c.so`, `geos_c.so`), and the basemap-1.0.7 release install file looks for the C++ library. The problem is documented in a couple of different places:
+- https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=741242
+- https://github.com/matplotlib/basemap/pull/140
+To fix this, modify `setup.py` line 86 to remove this bit of code:
 ```python
 libraries=['geos_c', 'geos']))
 ```
